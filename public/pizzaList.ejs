@@ -1,0 +1,70 @@
+{%- include('partials/header') -%}
+
+<!-- content start -->
+<div class="pb-5">
+  <div class="row">
+    <h1 class="text-warning text-center">Pizza List</h1>
+    {% if (user?.isAdmin) { %}
+    <div>
+      <a href="/pizzas/create" class="btn btn-primary mb-3">Create New Pizza</a>
+    </div>
+    {% } %}
+  </div>
+  <div class="d-flex flex-wrap justify-content-center pt-5">
+    {% for (let pizza of pizzas) { %}
+    <div class="card m-3 shadow" style="max-width: 640px">
+      <div class="row">
+        <div class="col-md-6">
+          {% if (pizza?.image) { %}
+          <img
+            src="{%= pizza.image %}"
+            class="img-fluid rounded-start"
+            style="width: 350px; height: 275px"
+          />
+          {% } %}
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h4 class="card-title">{%= pizza.name %}</h4>
+            <div class="card-text">
+              <ul>
+                {% for (let topping of pizza.toppings) { %}
+                <li>{%= topping.name %}</li>
+                {% } %}
+              </ul>
+              <strong> {%= pizza.price %} $</strong>
+            </div>
+
+            {% if (user?.isAdmin) { %}
+
+            <div class="pt-3">
+              <a href="/pizzas/{%= pizza._id %}/update" class="btn btn-warning"
+                >Edit</a
+              >
+            </div>
+            <div class="pt-3">
+              <a href="/pizzas/{%= pizza._id %}/delete" class="btn btn-danger"
+                >Delete</a
+              >
+            </div>
+
+            {% } else { %}
+            <div class="pt-3">
+              <a
+                href="/orders/create?pizza={%= pizza.id %}"
+                class="btn btn-warning"
+                >Order</a
+              >
+            </div>
+            {% } %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% } %}
+  </div>
+  {%- include('partials/pagination') -%}
+</div>
+<!-- content end -->
+
+{%- include('partials/footer') -%}

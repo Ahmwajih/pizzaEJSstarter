@@ -1,0 +1,37 @@
+{%- include('partials/header') -%}
+
+<div class="container mt-5 bg-white">
+  <h1>Topping List</h1>
+  <a href="/toppings/create" class="btn btn-primary mb-3">Create New Topping</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for (let topping of toppings) { %}
+      <tr>
+        <td>{%= topping.name %}</td>
+        <td>
+          <a href="/toppings/{%= topping._id %}" class="btn btn-info">View</a>
+          <a href="/toppings/{%= topping._id %}/update" class="btn btn-warning"
+            >Edit</a
+          >
+          <form
+            action="/toppings/{%= topping._id %}/delete"
+            method="POST"
+            class="d-inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% } %}
+    </tbody>
+  </table>
+  {%- include('partials/pagination') -%}
+</div>
+
+{%- include('partials/footer') -%}

@@ -1,0 +1,32 @@
+{%- include('partials/header') -%}
+
+<div class="container mt-5 bg-white ">
+    <h1>{% if (pizza) { %} Edit Pizza {% } else { %} Create Pizza {% } %}</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Pizza Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{%= pizza?.name || '' %}" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image URL</label>
+            <input type="text" class="form-control" id="image" name="image" value="{%= pizza?.image || '' %}">
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="{%= pizza?.price || '' %}" required>
+        </div>
+        <div class="mb-3">
+            <label for="toppings" class="form-label">Toppings</label>
+            <select multiple class="form-control" id="toppings" name="toppings">
+                {% for (let topping of allToppings) { %}
+                <option value="{%= topping._id %}" {% if (pizza?.toppings.some(t => t._id.toString() === topping._id.toString())) { %} selected {% } %}>
+                    {%= topping.name %}
+                </option>
+                {% } %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if (pizza) { %} Update Pizza {% } else { %} Create Pizza {% } %}</button>
+    </form>
+</div>
+
+{%- include('partials/footer') -%}

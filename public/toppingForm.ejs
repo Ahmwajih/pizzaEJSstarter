@@ -1,0 +1,25 @@
+{%- include('partials/header') -%}
+
+<div class="container mt-5">
+  <h1>
+    {% if (topping) { %} Edit Topping {% } else { %} Create Topping {% } %}
+  </h1>
+  <form method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Topping Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        value="{%= topping?.name || '' %}"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">
+      {% if (topping) { %} Update Topping {% } else { %} Create Topping {% } %}
+    </button>
+  </form>
+</div>
+
+{%- include('partials/footer') -%}

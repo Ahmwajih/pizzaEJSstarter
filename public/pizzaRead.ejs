@@ -1,0 +1,47 @@
+{%- include('partials/header') -%}
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-6">
+        {% if (pizza && pizza.image) { %}
+        <img
+          src="{%= pizza.image %}"
+          class="img-fluid rounded-start"
+          alt="{%= pizza.name %}"
+        />
+        {% } else { %}
+        <img
+          src="/assets/images/default-pizza.jpg"
+          class="img-fluid rounded-start"
+          alt="Default Pizza Image"
+        />
+        {% } %}
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h2 class="card-title">{%= pizza.name %}</h2>
+          <p class="card-text"><strong>Price:</strong> $ {%= pizza.price %}</p>
+          <p class="card-text"><strong>Toppings:</strong></p>
+          <ul>
+            {% for (let topping of pizza.toppings) { %}
+            <li>{%= topping.name %}</li>
+            {% } %}
+          </ul>
+          <a href="/pizzas/{%= pizza._id %}/update" class="btn btn-warning"
+            >Edit Pizza</a
+          >
+          <form
+            action="/pizzas/{%= pizza._id %}/delete"
+            method="POST"
+            class="d-inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete Pizza</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- include('partials/footer') -%}

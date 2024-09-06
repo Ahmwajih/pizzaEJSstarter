@@ -1,0 +1,21 @@
+{%- include('partials/header') -%}
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">{%= topping.name %}</h2>
+      <a href="/toppings/{%= topping._id %}/update" class="btn btn-warning"
+        >Edit Topping</a
+      >
+      <form
+        action="/toppings/{%= topping._id %}/delete"
+        method="POST"
+        class="d-inline"
+      >
+        <button type="submit" class="btn btn-danger">Delete Topping</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{%- include('partials/footer') -%}
